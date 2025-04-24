@@ -13,7 +13,7 @@ exports.addSchool = async (req, res) => {
 
   try {
     await db.execute(
-      'INSERT INTO sql12774999 (name, address, latitude, longitude) VALUES (?, ?, ?, ?)',
+      'INSERT INTO schools (name, address, latitude, longitude) VALUES (?, ?, ?, ?)',
       [name, address, latitude, longitude]
     );
     res.status(201).json({ message: 'School added successfully' });
@@ -45,7 +45,7 @@ exports.listSchools = async (req, res) => {
   }
 
   try {
-    const [schools] = await db.query('SELECT * FROM sql12774999');
+    const [schools] = await db.query('SELECT * FROM schools');
     const sortedSchools = schools.map(school => ({
       ...school,
       distance: calculateDistance(userLat, userLng, school.latitude, school.longitude)
